@@ -1,0 +1,46 @@
+# --- Maven ----
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar-gz
+*.rar
+
+# ---- IDE: InteLLiJ ----
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# ---- IDE: EcLipse / STS
+.apt generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# ---- IDE: VS Code ----
+.vscode/
+
+# ---- Logs ----
+*.log
+1ogs/
+
+#---- 0S ----
+.DS_Store
+Thumbs.db
+
+#---- Env / secrets
+.env
+*.local
+
+# ---- Docker volumes (Local data) ----
+.data/
+pgdata/
