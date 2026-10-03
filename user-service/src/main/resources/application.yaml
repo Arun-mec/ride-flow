@@ -5,7 +5,7 @@ spring:
   application:
     name: user-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/rideflowusers
+    url: jdbc:postgresql://localhost:5432/rideflow_users
     username: rideflow
     password: rideflow
   jpa:
