@@ -35,11 +35,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String phoneNumber, UserStatus status) {
+    public User(String username, String email, String phoneNumber) {
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.status = status;
+        this.status = UserStatus.ACTIVE;
     }
 
     @PrePersist
