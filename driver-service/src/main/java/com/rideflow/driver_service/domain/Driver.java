@@ -28,7 +28,7 @@ public class Driver {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private DriverStatus driverStatus;
+    private DriverStatus status;
 
     @Column(name = "current_latitude", nullable = false)
     private Double currentLatitude;
@@ -53,7 +53,7 @@ public class Driver {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.vehicleNumber = vehicleNumber;
-        this.driverStatus = DriverStatus.OFFLINE;
+        this.status = DriverStatus.OFFLINE;
     }
 
     @PrePersist
@@ -115,11 +115,11 @@ public class Driver {
     }
 
     public DriverStatus getDriverStatus() {
-        return driverStatus;
+        return status;
     }
 
     public void setDriverStatus(DriverStatus driverStatus) {
-        this.driverStatus = driverStatus;
+        this.status = driverStatus;
     }
 
     public Double getCurrentLatitude() {

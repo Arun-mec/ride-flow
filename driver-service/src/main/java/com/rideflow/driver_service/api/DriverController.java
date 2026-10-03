@@ -1,8 +1,11 @@
 package com.rideflow.driver_service.api;
 
 import com.rideflow.driver_service.domain.Driver;
+import com.rideflow.driver_service.domain.DriverStatus;
 import com.rideflow.driver_service.domain.dto.DriverRequest;
 import com.rideflow.driver_service.domain.dto.DriverResponse;
+import com.rideflow.driver_service.domain.dto.UpdateLocationRequest;
+import com.rideflow.driver_service.domain.dto.UpdateStatusRequest;
 import com.rideflow.driver_service.service.DriverService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -23,8 +26,8 @@ public class DriverController {
     }
 
     @PostMapping
-    public ResponseEntity<DriverResponse> register(@Valid @RequestBody DriverRequest driverRequest) {
-        Driver newDriver = driverService.registerDriver(driverRequest);
+    public ResponseEntity<DriverResponse> registerDriver(@Valid @RequestBody DriverRequest driverRequest) {
+        Driver newDriver = driverService.register(driverRequest);
         return new ResponseEntity<>(
                 DriverResponse.fromDriver(newDriver),
                 HttpStatus.CREATED
@@ -32,16 +35,39 @@ public class DriverController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DriverResponse> getById(@PathVariable UUID id) {
-        Driver newDriver = driverService.getDriverById(id);
+    public ResponseEntity<DriverResponse> getDriverById(@PathVariable UUID id) {
+        Driver newDriver = driverService.getById(id);
         return new ResponseEntity<>(
                 DriverResponse.fromDriver(newDriver),
-                HttpStatus.CREATED
+                HttpStatus.FOUND
         );
     }
 
     @GetMapping
-    public List<DriverResponse> getAllDrivers() {
-        return driverService.getAllDrivers().stream().map(DriverResponse::fromDriver).toList();
+    public List<DriverResponse> getAllDrivers(@RequestParam(required = false)DriverStatus status) {
+        return status==null ?
+                driverService.getAll().stream().map(DriverResponse::fromDriver).toList():
+                driverService.getByStatus(status).stream().map(DriverResponse::fromDriver).toList();
     }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<DriverResponse> updateDriverStatus(@PathVariable UUID id,
+                                                             @Valid @RequestBody UpdateStatusRequest updateStatusRequest) {
+        Driver updateDriver = driverService.updateStatus(id, updateStatusRequest);
+        return new ResponseEntity<>(
+                DriverResponse.fromDriver(updateDriver),
+                HttpStatus.OK
+        );
+    }
+
+    @PutMapping("/{id}/location")
+    public ResponseEntity<DriverResponse> updateDriverLocation(@PathVariable UUID id,
+                                                               @Valid @RequestBody UpdateLocationRequest updateLocationRequest) {
+        Driver updateDriver = driverService.updateLocation(id, updateLocationRequest);
+        return new ResponseEntity<>(
+                DriverResponse.fromDriver(updateDriver),
+                HttpStatus.OK
+        );
+    }
+
 }
