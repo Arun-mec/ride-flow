@@ -44,8 +44,9 @@ public class RideController {
     }
 
     @GetMapping
-    public List<RideResponse> search(@RequestParam UUID riderId,
-                                     @RequestParam UUID driverId, @RequestParam RideStatus status) {
+    public List<RideResponse> search(@RequestParam(required = false) UUID riderId,
+                                     @RequestParam(required = false) UUID driverId,
+                                     @RequestParam(required = false) RideStatus status) {
         return rideService.search(riderId, driverId, status)
                 .stream().map(RideResponse::fromRide).toList();
     }
