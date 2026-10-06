@@ -20,7 +20,7 @@ spring:
 
 rideflow:
   jwt:
-    secret: ${RIDEFLOW_JWT_SECRET:local-dev-only-secret-change-me-0123456789}
+      secret: ${RIDEFLOW_JWT_SECRET:local-dev-only-secret-change-me-0123456789}
 
 eureka:
   client:
