@@ -3,7 +3,12 @@ package com.rideflow.user_service.domain.dto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
+import java.util.UUID;
+
 public record UserRequest (
+        @NotNull(message = "auth subject id is required")
+        UUID authSubjectId,
+
         @NotBlank(message = "username is required")
         String username,
 

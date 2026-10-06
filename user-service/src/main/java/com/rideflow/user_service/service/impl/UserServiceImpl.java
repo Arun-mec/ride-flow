@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateUserException("phone number already registered: "+userRequest.phoneNumber());
         }
 
-        User user = new User(userRequest.username(), userRequest.email(), userRequest.phoneNumber());
+        User user = new User(userRequest.username(), userRequest.email(), userRequest.phoneNumber(), userRequest.authSubjectId());
         return userRepository.save(user);
     }
 

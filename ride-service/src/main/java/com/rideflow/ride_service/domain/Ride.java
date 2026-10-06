@@ -105,7 +105,7 @@ public class Ride {
     }
 
     public void transitionTo(RideStatus nxtStatus) {
-        if (!this.status.moveTo(status))
+        if (!this.status.moveTo(nxtStatus))
             throw new IllegalStatusChangeException(this.status, nxtStatus);
         this.status = nxtStatus;
     }

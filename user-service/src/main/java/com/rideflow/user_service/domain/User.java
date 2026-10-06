@@ -22,6 +22,9 @@ public class User {
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
+    @Column(name = "auth_subject_id", unique = true)
+    private UUID authSubjectId;
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status", nullable = false)
     private UserStatus status;
@@ -35,10 +38,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String phoneNumber) {
+    public User(String username, String email, String phoneNumber, UUID authSubjectId) {
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.authSubjectId = authSubjectId;
         this.status = UserStatus.ACTIVE;
     }
 

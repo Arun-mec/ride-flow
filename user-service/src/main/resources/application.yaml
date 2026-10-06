@@ -17,7 +17,25 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
+
+rideflow:
+  jwt:
+    secret: ${RIDEFLOW_JWT_SECRET:local-dev-only-secret-change-me-0123456789}
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.hibernate.SQL: INFO

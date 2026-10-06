@@ -1,10 +1,10 @@
-package com.rideflow.api_gateway;
+package com.rideflow.auth_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiGatewayApplicationTests {
+class AuthServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
