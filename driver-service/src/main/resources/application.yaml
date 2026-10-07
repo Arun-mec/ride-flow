@@ -27,9 +27,10 @@ rideflow:
 
 eureka:
   client:
-    server-url:
-      defaultZone: http://localhost:8761/eureka
-  instance:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://eureka-server:8761/eureka/}
     prefer-ip-address: true
 
 management:
