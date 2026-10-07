@@ -98,6 +98,41 @@ services:
       eureka-server:
         condition: service_healthy
 
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/rideflow_users"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      #      RIDEFLOW_JWT_SECRET: "$${RIDEFLOW_JWT_SECRET:-local-dev-only-secret-change-me-in-production-12}"
+      RIDEFLOW_JWT_SECRET: "local-dev-only-secret-change-me-in-production-12"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+
+  driver-service:
+    build:
+      context: .
+      dockerfile: driver-service/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/rideflow_drivers"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      RIDEFLOW_JWT_SECRET: "local-dev-only-secret-change-me-in-production-12"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
   ride-service:
     build:
       context: .
@@ -115,42 +150,6 @@ services:
       eureka-server:
         condition: service_healthy
       kafka:
-        condition: service_healthy
-
-  driver-service:
-    build:
-      context: .
-      dockerfile: driver-service/Dockerfile
-    ports:
-      - "8082:8082"
-    environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/rideflow_drivers"
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
-        #      RIDEFLOW_JWT_SECRET: "$${RIDEFLOW_JWT_SECRET:-local-dev-only-secret-change-me-in-production-12}"
-      RIDEFLOW_JWT_SECRET: "local-dev-only-secret-change-me-in-production-12"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      eureka-server:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
-
-  user-service:
-    build:
-      context: .
-      dockerfile: user-service/Dockerfile
-    ports:
-      - "8081:8081"
-    environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/rideflow_users"
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
-#      RIDEFLOW_JWT_SECRET: "$${RIDEFLOW_JWT_SECRET:-local-dev-only-secret-change-me-in-production-12}"
-      RIDEFLOW_JWT_SECRET: "local-dev-only-secret-change-me-in-production-12"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      eureka-server:
         condition: service_healthy
 
 volumes:
